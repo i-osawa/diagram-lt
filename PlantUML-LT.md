@@ -1,22 +1,30 @@
 # 関連図
 
+```mermaid
+flowchart LR
+  A<-->B
+  B-->C
+  C-->D
+```
+
 ```plantuml
 @startuml
 collections 保険会社
-agent 保険代理店 as hoken
+agent 保険代理店 as doit
 actor 募集人
 collections マーケット
 actor 顧客
+agent itz
 
 保険会社<-do-顧客: 保険料支払
 募集人<-do-マーケット: 案件買取
 募集人-ri->顧客: 営業
-hoken-ri->募集人: 手数料
-hoken<-ri-募集人: 調整額・控除額（案件代等）
-hoken->マーケット: 案件代を一括支払
-hoken<-up-保険会社: 手数料
+doit-ri->募集人: 手数料
+doit<-ri-募集人: 調整額・控除額（案件代等）
+doit->マーケット: 案件代を一括支払
+doit<-up-保険会社: 手数料
 マーケット<-up-顧客: 保険相談
-
+doit<-do-itz: システム提供
 @enduml
 ```
 
@@ -35,6 +43,7 @@ note right: ガチャ権利回数を表示（0回でも表示する）
 ユーザ->fan: ガチャを回すボタンClick
 ユーザ<-fan: ガチャスタート画面表示
 ユーザ->fan: 画面タップ
+fan<->kai: ユーザのカード情報取得API
 fan<->kai: ユーザのカード情報取得API
 fan<->kai: ガチャ権利回数取得API
 note right: 2端末操作等で、この時点でガチャ権利が無ければ、\nTOP画面に戻りエラーメッセージを表示？
